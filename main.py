@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import models, database
+import models, database
 
 app = FastAPI(title="Eliasyn System")
 
