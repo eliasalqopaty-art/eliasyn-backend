@@ -4,5 +4,6 @@ class Patient:
         self.name = name
         self.history = history
 
+
     def get_summary(self):
         return f"المريض: {self.name} - السجل: {self.history}"
