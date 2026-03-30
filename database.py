@@ -1,13 +1,20 @@
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import os
 
-def init_db():
-    conn = sqlite3.connect('eliasyn.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS patients 
-                 (id INTEGER PRIMARY KEY, name TEXT, medical_history TEXT)''')
-    conn.commit()
-    conn.close()
+# جلب الرابط السري لقاعدة البيانات من إعدادات Render
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-if __name__ == "__main__":
-    init_db()
-    print("Database initialized.")
+# إصلاح بسيط لنوع الرابط إذا كان يبدأ بـ postgres://
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+# المحرك الذي يدير الاتصالات
+engine = create_engine(DATABASE_URL)
+
+# الجلسة التي نستخدمها لإرسال واستقبال البيانات
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# القاعدة التي تبنى عليها كل الجداول
+Base = declarative_base()
