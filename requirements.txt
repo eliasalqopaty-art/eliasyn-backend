@@ -1,4 +1,4 @@
 flask
+python-telegram-bot
 gunicorn
-sqlalchemy
-psycopg2-binary
+requests
