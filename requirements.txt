@@ -1,5 +1,0 @@
-sqlalchemy
-psycopg2-binary
-flask
-passlib[bcrypt]
-python-jose[cryptography]
